@@ -16,20 +16,24 @@ query = 7
 
 
 # Output
-output = 3
+# output = 3
 
 
 
 #function
-def find_card(cards, query):
-    pass
+def find_card(card, query):
+    position = 0
+    
+    while True:
+        if card[position] == query:
+            return position
+        position += 1
+    return -1
 
 
 
 result = find_card(cards, query)
 print(result)
-
-print(result == output)
 
 
 # test = {
@@ -132,4 +136,3 @@ tests.append({
 })
 
 
-print(len(tests))

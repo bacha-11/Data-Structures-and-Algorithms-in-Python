@@ -18,7 +18,8 @@ query = 6
 
 
 
-#function
+# ********** function linear search *****************
+
 # def find_card(card, query):
 #     position = 0
     
@@ -30,20 +31,43 @@ query = 6
 #     return -1
 
 
+
+# ********* binary search function ************
+
+# helper function for repeated number
+
+def check_location(cards, query, mid):
+    mid_number = cards[mid]
+
+    if mid_number == query:
+        if mid - 1 >= 0 and cards[mid-1] == query:
+            return 'left'
+        else:
+            return 'found'
+    
+    elif mid_number < query:
+        return 'left'
+    else:
+        return 'right'
+
+
 def find_card(cards , query):
     lo, hi = 0, len(cards) - 1
 
     while lo <= hi:
         mid = (lo + hi) // 2
-        mid_number = cards[mid]
-        if mid_number == query:
+        result = check_location(cards, query, mid)
+
+
+        if result == 'found':
             return mid
 
-        elif mid_number > query:
+        elif result == 'right':
             lo = mid + 1
 
-        elif mid_number < query:
+        elif result == 'left':
             hi = mid - 1
+
     return -1
 
 
@@ -52,6 +76,8 @@ result = find_card(cards, query)
 print(result)
 
 
+
+# ********** Tests *********
 
 # test = {
 #     "input": {
@@ -154,15 +180,14 @@ tests.append({
 
 
 
-# def test_case(test_card, test):
-#     for test in tests:   
-#         if test_card(test['input']['cards'], test['input']['query']) == test['output']:
-#             return 'found'
-#         return 'not found'
+# def test_case(test_card, test):   
+#     if test_card(test['input']['cards'], test['input']['query']) == test['output']:
+#         return 'found'
+#     return 'not found'
 
 
-# res = test_case(find_card, tests)
-# print(res)
+# # res = test_case(find_card, tests)
+# # print(res)
 
 # for test in tests:
 #     res = test_case(find_card, test)

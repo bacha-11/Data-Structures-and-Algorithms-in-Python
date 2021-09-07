@@ -31,49 +31,96 @@ query = 6
 #     return -1
 
 
+# result = find_card(cards, query)
+# print(result)
+
+
+
 
 # ********* binary search function ************
 
 # helper function for repeated number
 
-def check_location(cards, query, mid):
-    mid_number = cards[mid]
+# def check_location(cards, query, mid):
+#     mid_number = cards[mid]
 
-    if mid_number == query:
-        if mid - 1 >= 0 and cards[mid-1] == query:
-            return 'left'
-        else:
-            return 'found'
+#     if mid_number == query:
+#         if mid - 1 >= 0 and cards[mid-1] == query:
+#             return 'left'
+#         else:
+#             return 'found'
     
-    elif mid_number < query:
-        return 'left'
-    else:
-        return 'right'
+#     elif mid_number < query:
+#         return 'left'
+#     else:
+#         return 'right'
 
 
-def find_card(cards , query):
-    lo, hi = 0, len(cards) - 1
+# def find_card(cards , query):
+#     lo, hi = 0, len(cards) - 1
 
+#     while lo <= hi:
+#         mid = (lo + hi) // 2
+#         result = check_location(cards, query, mid)
+
+
+#         if result == 'found':
+#             return mid
+
+#         elif result == 'right':
+#             lo = mid + 1
+
+#         elif result == 'left':
+#             hi = mid - 1
+
+#     return -1
+
+
+
+# result = find_card(cards, query)
+# print(result)
+
+
+
+# ************** Generic Binary Search ***************
+
+
+def binary_search(lo, hi, condition):
     while lo <= hi:
         mid = (lo + hi) // 2
-        result = check_location(cards, query, mid)
-
+        result = condition(mid)
 
         if result == 'found':
             return mid
-
-        elif result == 'right':
-            lo = mid + 1
-
         elif result == 'left':
-            hi = mid - 1
-
+            hi = mid -1
+        else:
+            lo = mid + 1
     return -1
 
+def find_card(cards, query):
+
+    def condition(mid):
+        if cards[mid] == query:
+            if mid > 0 and cards[mid-1] == query:
+                return 'left'
+            else:
+                return 'found'
+        
+        elif cards[mid] < query:
+            return 'left'
+        else:
+            return 'right'
+        
+    return binary_search(0, len(cards) - 1, condition)
 
 
 result = find_card(cards, query)
 print(result)
+
+
+
+
 
 
 

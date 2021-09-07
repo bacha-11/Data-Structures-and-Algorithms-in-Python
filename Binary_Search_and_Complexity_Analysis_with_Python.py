@@ -9,10 +9,8 @@ Write a function to help Bob locate the card.
 
 # inputs
 
-cards =      [13, 12, 11, 7, 4, 3, 2, 1]
-# positions -> 0,  1,  2, 3, 4, 5, 6, 7
-query = 7
-
+cards = [8, 8, 6, 6, 6, 6, 6, 6, 3, 2, 2, 2, 0, 0, 0]
+query = 6
 
 
 # Output
@@ -21,19 +19,38 @@ query = 7
 
 
 #function
-def find_card(card, query):
-    position = 0
+# def find_card(card, query):
+#     position = 0
     
-    while True:
-        if card[position] == query:
-            return position
-        position += 1
+#     while len(card) > position:
+#         if card[position] == query:
+#             return position
+#         position += 1
+
+#     return -1
+
+
+def find_card(cards , query):
+    lo, hi = 0, len(cards) - 1
+
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        mid_number = cards[mid]
+        if mid_number == query:
+            return mid
+
+        elif mid_number > query:
+            lo = mid + 1
+
+        elif mid_number < query:
+            hi = mid - 1
     return -1
 
 
 
 result = find_card(cards, query)
 print(result)
+
 
 
 # test = {
@@ -51,7 +68,7 @@ tests = []
 
 tests.append({
      "input": {
-         "cards": [13, 12, 11, 7, 4, 3, 2, 1],
+         "cards": [13, 12, 11, 4, 3, 2, 1],
          "query": 7
      },
      "output": 3
@@ -136,3 +153,17 @@ tests.append({
 })
 
 
+
+# def test_case(test_card, test):
+#     for test in tests:   
+#         if test_card(test['input']['cards'], test['input']['query']) == test['output']:
+#             return 'found'
+#         return 'not found'
+
+
+# res = test_case(find_card, tests)
+# print(res)
+
+# for test in tests:
+#     res = test_case(find_card, test)
+#     print(res)
